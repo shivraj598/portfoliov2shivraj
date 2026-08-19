@@ -69,19 +69,3 @@ export const techNames: Record<TechKey, string> = {
   celery: "Celery", tldraw: "tldraw", css3: "CSS3", python: "Python", anthropic: "Anthropic",
   claude: "Claude", gemini: "Gemini", llama: "LLaMA",
 };
-
-export const projectsData: Project[] = [
-  {
-    slug: "demo-project",
-    title: "Demo Project",
-    imageTitle: "Demo Preview",
-    src: "/project-image/demo-dark.png",
-    lightModeSrc: "/project-image/demo-light.png",
-    video: "",
-    description: "A placeholder project — replace this card with your own work, screenshots, and links.",
-    tech: ["next", "react", "ts", "tailwind"],
-    github: "https://github.com/shivraj598",
-    live: "",
-    hasPin: false,
-  },
-];
