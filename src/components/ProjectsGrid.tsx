@@ -14,7 +14,6 @@ import {
   type Project,
   iconMap,
   techNames,
-  projectsData,
 } from "@/data/projectsData";
 
 export {
@@ -24,7 +23,6 @@ export {
   type Project,
   iconMap,
   techNames,
-  projectsData,
 };
 
 export const ProjectCard = ({
@@ -216,7 +214,7 @@ export const ProjectCard = ({
   );
 };
 
-export function ProjectsGrid() {
+export function ProjectsGrid({ projects }: { projects: Project[] }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   useEffect(() => {
@@ -232,7 +230,7 @@ export function ProjectsGrid() {
       <div className="flex flex-col relative z-10 w-full">
         {/* Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 md:gap-y-0 pb-10 md:pb-6">
-          {projectsData.slice(0, 2).map((project) => (
+          {projects.slice(0, 2).map((project) => (
             <ProjectCard key={project.title} project={project} setActiveVideo={setActiveVideo} />
           ))}
         </div>
@@ -248,7 +246,7 @@ export function ProjectsGrid() {
 
         {/* Row 2 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 md:gap-y-0 pt-0 md:pt-6">
-          {projectsData.slice(2, 4).map((project) => (
+          {projects.slice(2, 4).map((project) => (
             <ProjectCard key={project.title} project={project} setActiveVideo={setActiveVideo} />
           ))}
         </div>
