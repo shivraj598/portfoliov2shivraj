@@ -83,15 +83,57 @@ Portfolio-v2-
 ├── src/
 │   ├── app/                 # Next.js App Router pages
 │   ├── components/          # React components & UI primitives
-│   ├── data/                # Projects and blogs data
+│   ├── data/                # Shared types and tech icons/names
 │   ├── hooks/               # Custom React hooks
-│   └── lib/                 # Utility functions and sound engine
+│   └── lib/                 # Utility functions, content loader, sound engine
+├── content/                 # Markdown files: projects/ and blogs/
 ├── public/                  # Static assets
 ├── next.config.ts           # Next.js configuration
 ├── tailwind.config.ts       # Tailwind CSS configuration
 ├── tsconfig.json            # TypeScript configuration
 └── package.json
 ```
+
+## Adding Content
+
+Projects and blog posts are plain Markdown files with YAML frontmatter — no code
+edits needed.
+
+**Add a project:** create `content/projects/<slug>.md` (the filename becomes the URL):
+
+```md
+---
+title: My Project
+src: /project-image/dark.png        # required — card & detail image
+lightModeSrc: /project-image/light.png
+video: ""                            # optional — YouTube URL or mp4
+description: Short card description
+tech: [next, ts, tailwind]           # icons; valid keys live in src/data/projectsData.ts
+github: https://github.com/you/repo  # optional
+live: ""                             # optional — deployed URL
+hasPin: false                        # optional — pin to top
+---
+
+## About this project
+Markdown body, rendered on the detail page.
+```
+
+**Add a blog post:** create `content/blogs/<slug>.md`:
+
+```md
+---
+title: My Post
+date: "Jan 2026"
+claps: 0          # optional
+tags: [Demo]      # optional
+---
+
+Markdown body, rendered on the article page.
+```
+
+The build validates content (required fields, tech keys) and fails with a
+helpful error if something is off. Cards on the homepage, the `/projects` and
+`/blogs` indexes, and detail pages all update automatically.
 
 
 
