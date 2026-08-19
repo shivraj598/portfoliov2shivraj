@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Calendar } from "lucide-react";
-import { blogsData } from "@/data/blogsData";
+import { ArrowRight, Calendar } from "lucide-react";
+import type { Blog } from "@/lib/content";
 
 const ClapIcon = ({ className }: { className?: string }) => (
   <svg
@@ -36,17 +36,15 @@ const RealClapIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function BlogList() {
+export function BlogList({ blogs }: { blogs: Blog[] }) {
   return (
     <div className="block">
-      {blogsData.map((blog, idx) => {
-        const isLast = idx === blogsData.length - 1;
+      {blogs.map((blog, idx) => {
+        const isLast = idx === blogs.length - 1;
 
         return (
           <Link
-            href={blog.link}
-            target={blog.isExternal ? "_blank" : undefined}
-            rel={blog.isExternal ? "noopener noreferrer" : undefined}
+            href={`/blogs/${blog.slug}`}
             key={idx}
             className="group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer"
           >
@@ -110,11 +108,7 @@ export function BlogList() {
               </div>
 
               <div className="ml-4 flex-shrink-0 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
-                {blog.isExternal ? (
-                  <ArrowUpRight className="w-4 h-4" />
-                ) : (
-                  <ArrowRight className="w-4 h-4" />
-                )}
+                <ArrowRight className="w-4 h-4" />
               </div>
             </div>
           </Link>
