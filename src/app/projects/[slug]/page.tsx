@@ -3,22 +3,26 @@ import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
 import { RightNavbar } from "@/components/RightNavbar";
 import { FooterBackground } from "@/components/FooterBackground";
-import { projectsData, iconMap, techNames, TechItem, TechKey } from "@/data/projectsData";
+import { getAllProjects, getProjectContent } from "@/lib/content";
+import { iconMap, techNames, TechItem, TechKey } from "@/data/projectsData";
+import { MarkdownRenderer } from "@/components/markdown-renderer";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ExternalLink, ArrowLeft } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
-  return projectsData.map((project) => ({
+  return getAllProjects().map((project) => ({
     slug: project.slug,
   }));
 }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = projectsData.find((p) => p.slug === slug);
+  const project = getProjectContent(slug);
 
   if (!project) {
     notFound();
@@ -185,6 +189,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="text-[14px] sm:text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-300">
           {project.description}
         </p>
+
+        {/* Markdown Body */}
+        {project.body && (
+          <div className="mt-8">
+            <MarkdownRenderer markdown={project.body} />
+          </div>
+        )}
 
         {/* Dashed Divider before Stack */}
         <div className="relative mt-8 mb-6">
