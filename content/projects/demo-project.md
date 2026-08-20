@@ -1,9 +1,9 @@
 ---
 title: Demo Project
 imageTitle: Demo Preview
-src: /project-image/demo-dark.png
-lightModeSrc: /project-image/demo-light.png
-video: ""
+src: /public/project-image/demo-dark.png
+lightModeSrc: /public/project-image/demo-light.png
+# video: ""
 description: A placeholder project — replace this card with your own work, screenshots, and links.
 tech:
   - next
@@ -28,7 +28,7 @@ This is a placeholder. Everything here is written in **plain Markdown** in
 
 ```yaml
 # example frontmatter
-src: /project-image/my-dark.png
+src: /public/project-image/my-dark.png
 tech: [next, ts, tailwind]
 ```
 
