@@ -1,0 +1,31 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: "00"
+      - generic [ref=e12]: "55"
+      - generic [ref=e16]: "49"
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - link [ref=e20] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e23]:
+          - heading "Blogs" [level=1] [ref=e24]
+          - paragraph [ref=e25]: 1 post
+      - generic [ref=e26]:
+        - button "⌘ K" [ref=e27] [cursor=pointer]:
+          - generic [ref=e28]:
+            - generic [ref=e29]: ⌘
+            - generic [ref=e30]: K
+        - generic [ref=e31]:
+          - heading "Command Palette" [level=2] [ref=e32]
+          - paragraph [ref=e33]: Search for a command to run...
+        - button "Toggle theme" [ref=e34] [cursor=pointer]
+    - link "Demo Blog Post Aug 2026 Demo" [ref=e39] [cursor=pointer]:
+      - /url: /blogs/demo-blog
+      - generic [ref=e41]:
+        - heading "Demo Blog Post" [level=3] [ref=e42]
+        - generic [ref=e43]:
+          - generic [ref=e44]: Aug 2026
+          - generic [ref=e49]: Demo
+  - button "Open Next.js Dev Tools" [ref=e59] [cursor=pointer]
+  - alert [ref=e63]

@@ -1,11 +1,12 @@
 import { getAllBlogs } from "@/lib/content";
+import { RevealGroup } from "@/components/animations/reveal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
 import { RightNavbar } from "@/components/RightNavbar";
 import { FooterBackground } from "@/components/FooterBackground";
-import Link from "next/link";
-import { ArrowRight, Calendar } from "lucide-react";
+import SoundLink from "@/components/SoundLink";
+import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
 
 const ClapIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5">
@@ -25,7 +26,7 @@ export default async function BlogsPage() {
   const posts = getAllBlogs();
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
       {/* Right Side Blueprint Navigation */}
       <RightNavbar />
 
@@ -64,13 +65,21 @@ export default async function BlogsPage() {
       {/* Cell 2: Header */}
       <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-[22vh] h-[112px] flex items-center px-4 z-50">
         <div className="flex w-full items-center justify-between">
-          <div className="flex flex-col justify-center">
-            <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
-              Blogs
-            </h1>
-            <p className="text-[12px] text-zinc-500 dark:text-zinc-400 font-medium">
-              {posts.length} {posts.length === 1 ? "post" : "posts"}
-            </p>
+          {/* Left: Back + Title */}
+          <div className="flex items-center gap-5">
+            <SoundLink sound="back" href="/"
+              className="group flex items-center justify-center w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+            </SoundLink>
+            <div className="flex flex-col justify-center">
+              <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
+                Blogs
+              </h1>
+              <p className="text-[12px] text-zinc-500 dark:text-zinc-400 font-medium">
+                {posts.length} {posts.length === 1 ? "post" : "posts"}
+              </p>
+            </div>
           </div>
 
           <div className="flex items-start justify-end gap-2 sm:gap-3 h-20 sm:h-24 py-1">
@@ -82,12 +91,12 @@ export default async function BlogsPage() {
 
       {/* Content Section */}
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative">
-        <div className="mt-8 block">
+        <RevealGroup y={24} stagger={0.07} className="mt-8 block">
           {posts.map((post, idx) => {
             const isLast = idx === posts.length - 1;
 
             return (
-              <Link
+              <SoundLink sound="click"
                 href={`/blogs/${post.slug}`}
                 key={post.slug}
                 className="group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer"
@@ -154,10 +163,10 @@ export default async function BlogsPage() {
                     <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
-              </Link>
+          </SoundLink>
             );
           })}
-        </div>
+        </RevealGroup>
       </div>
     </div>
   );

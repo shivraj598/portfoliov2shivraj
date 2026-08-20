@@ -6,7 +6,8 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { getAllProjects, getProjectContent } from "@/lib/content";
 import { iconMap, techNames, TechItem, TechKey } from "@/data/projectsData";
 import { MarkdownRenderer } from "@/components/markdown-renderer";
-import Link from "next/link";
+import { Reveal } from "@/components/animations/reveal";
+import SoundLink from "@/components/SoundLink";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ExternalLink, ArrowLeft } from "lucide-react";
@@ -29,7 +30,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
       {/* Right Side Blueprint Navigation */}
       <RightNavbar />
 
@@ -70,12 +71,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="flex w-full items-center justify-between">
           {/* Left: Back + Title */}
           <div className="flex items-center gap-5">
-            <Link
-              href="/"
+            <SoundLink sound="back" href="/"
               className="group flex items-center justify-center w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-            </Link>
+            </SoundLink>
             <div className="flex flex-col justify-center">
               <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
                 {project.title}
@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       </div>
 
       {/* Content Section */}
-      <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative">
+      <Reveal as="div" y={20} className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative">
 
         {/* Media (Video or Image) right at the top */}
         <div className="w-full aspect-video relative mt-8 rounded-lg overflow-hidden border border-black/10 dark:border-white/[0.15] shadow-sm bg-black z-20">
@@ -222,7 +222,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             })}
           </div>
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }

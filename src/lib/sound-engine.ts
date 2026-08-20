@@ -8,6 +8,20 @@ export function getAudioContext(): AudioContext {
   return audioContext;
 }
 
+async function fetchBuffer(url: string): Promise<AudioBuffer> {
+  const cached = bufferCache.get(url);
+  if (cached) return cached;
+
+  const ctx = getAudioContext();
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Failed to load sound: ${url} (${response.status})`);
+  }
+  const audioBuffer = await ctx.decodeAudioData(await response.arrayBuffer());
+  bufferCache.set(url, audioBuffer);
+  return audioBuffer;
+}
+
 export async function decodeAudioData(dataUri: string): Promise<AudioBuffer> {
   const cached = bufferCache.get(dataUri);
   if (cached) return cached;
@@ -36,7 +50,7 @@ export interface SoundPlayback {
 }
 
 export async function playSound(
-  dataUri: string,
+  key: string,
   options: PlaySoundOptions = {}
 ): Promise<SoundPlayback> {
   const { volume = 1, playbackRate = 1, onEnd } = options;
@@ -45,7 +59,8 @@ export async function playSound(
     await ctx.resume();
   }
 
-  const buffer = await decodeAudioData(dataUri);
+  const isUrl = !key.startsWith("data:");
+  const buffer = isUrl ? await fetchBuffer(key) : await decodeAudioData(key);
   const source = ctx.createBufferSource();
   const gain = ctx.createGain();
 

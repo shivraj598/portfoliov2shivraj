@@ -4,8 +4,7 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { flushSync } from "react-dom";
 import { useTheme } from "next-themes";
-import { playSound } from "@/lib/sound-engine";
-import { click003Sound } from "@/lib/click-003";
+import { playUiSound } from "@/lib/sounds";
 import { cn } from "@/lib/utils";
 
 type ViewTransitionDocument = Document & {
@@ -62,7 +61,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={() => {
-        void playSound(click003Sound.dataUri, { volume: 0.5 });
+        void playUiSound("mouseclick", 0.6);
         toggleTheme();
       }}
       className={cn(

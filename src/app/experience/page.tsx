@@ -1,5 +1,6 @@
 "use client";
 
+import { Reveal } from "@/components/animations/reveal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandMenu } from "@/components/command-menu";
 import { CurrentTime } from "@/components/CurrentTime";
@@ -9,6 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { playUiSound } from "@/lib/sounds";
 
 type ExperienceData = {
   title: string;
@@ -49,7 +51,7 @@ export default function AllExperiencePage() {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
       {/* Right Side Blueprint Navigation */}
       <RightNavbar />
 
@@ -92,6 +94,7 @@ export default function AllExperiencePage() {
           <div className="flex items-center gap-5">
             <Link
               href="/"
+              onClick={() => playUiSound("back")}
               className="group flex items-center justify-center w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
@@ -115,7 +118,7 @@ export default function AllExperiencePage() {
       </div>
 
       {/* Content Section */}
-      <div
+      <Reveal as="div" y={20}
         className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-16 px-4 flex flex-col z-10 relative"
       >
         <div className="relative pt-0 pb-6">
@@ -339,6 +342,7 @@ export default function AllExperiencePage() {
                       </div>
                     </div>
                   </div>
+
                 </div>
               );
             })}
@@ -351,7 +355,7 @@ export default function AllExperiencePage() {
           <div className="absolute -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
           <div className="absolute -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
         </div>
-      </div>
+      </Reveal>
     </div>
   );
 }

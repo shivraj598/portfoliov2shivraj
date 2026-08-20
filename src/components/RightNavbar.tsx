@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { playUiSound } from "@/lib/sounds";
 
 export function RightNavbar() {
   const pathname = usePathname();
@@ -53,6 +54,7 @@ export function RightNavbar() {
             <Link
               key={link.name}
               href={link.href}
+              onClick={() => playUiSound("button", 0.35)}
               className={`text-[12px] font-medium tracking-[0.05em] transition-all duration-300 ease-out flex items-center gap-3 ${isActive
                   ? "text-zinc-800 dark:text-zinc-200"
                   : "text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400"

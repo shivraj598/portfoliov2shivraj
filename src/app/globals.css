@@ -180,3 +180,36 @@ body {
   }
 
 }
+
+/* Site background (landing page). Dark theme: uses public/backgrounds/background1.jpeg as a
+   full-bleed cover. Light theme keeps a subtle dot matrix so the page stays readable. */
+.carbon-fiber {
+  background-color: #f4f4f2;
+  background-image:
+    radial-gradient(rgba(0, 0, 0, 0.11) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.06) 0.75px, transparent 0.75px);
+  background-size: 8px 8px, 8px 8px;
+  background-position: 0 0, 4px 4px;
+}
+
+.dark .carbon-fiber {
+  background-color: #000000;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url('/backgrounds/background3.jpeg');
+  background-size: auto, auto;
+  background-repeat: repeat, repeat;
+}
+
+/* Blue light that follows the mouse cursor (landing page) — intentionally very subtle */
+.cursor-glow {
+  background: radial-gradient(circle, rgba(56, 139, 253, 0.1) 0%, rgba(37, 99, 235, 0.05) 30%, rgba(30, 64, 175, 0.02) 55%, transparent 74%);
+  mix-blend-mode: screen;
+  filter: blur(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-glow {
+    display: none;
+  }
+}

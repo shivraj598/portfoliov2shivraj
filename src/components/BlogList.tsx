@@ -1,9 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
 import type { Blog } from "@/lib/content";
+import { playUiSound } from "@/lib/sounds";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const ClapIcon = ({ className }: { className?: string }) => (
   <svg
@@ -37,8 +43,40 @@ const RealClapIcon = ({ className }: { className?: string }) => (
 );
 
 export function BlogList({ blogs }: { blogs: Blog[] }) {
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const el = listRef.current;
+      if (!el) return;
+
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(el.children, { clearProps: "all" });
+      });
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(
+          el.children,
+          { autoAlpha: 0, y: 28 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            stagger: 0.08,
+            overwrite: "auto",
+            scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          }
+        );
+      });
+
+      return () => mm.revert();
+    },
+    { scope: listRef }
+  );
+
   return (
-    <div className="block">
+    <div ref={listRef} className="block">
       {blogs.map((blog, idx) => {
         const isLast = idx === blogs.length - 1;
 
@@ -46,6 +84,7 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
           <Link
             href={`/blogs/${blog.slug}`}
             key={idx}
+            onClick={() => playUiSound("click", 0.4)}
             className="group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer"
           >
             {/* Dashed bottom border for all items except the last one */}

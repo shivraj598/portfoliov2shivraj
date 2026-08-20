@@ -54,15 +54,18 @@ export function GithubGraph() {
   useEffect(() => {
     const fetchContributions = async () => {
       const cacheKey = "github_contributions_v2";
+      const TTL = 24 * 60 * 60 * 1000;
       const cachedData = typeof window !== "undefined" ? localStorage.getItem(cacheKey) : null;
       
       if (cachedData) {
         try {
           const parsed = JSON.parse(cachedData);
-          setWeeks(parsed.weeks);
-          setMonths(parsed.months || []);
-          setTotalContributions(parsed.totalContributions);
-          setLoading(false);
+          if (Date.now() - (parsed.fetchedAt || 0) < TTL) {
+            setWeeks(parsed.weeks);
+            setMonths(parsed.months || []);
+            setTotalContributions(parsed.totalContributions);
+            setLoading(false);
+          }
         } catch {
           setLoading(true);
         }
@@ -109,7 +112,8 @@ export function GithubGraph() {
             localStorage.setItem(cacheKey, JSON.stringify({
               weeks: calendar.weeks,
               months: calendar.months,
-              totalContributions: calendar.totalContributions
+              totalContributions: calendar.totalContributions,
+              fetchedAt: Date.now(),
             }));
           }
         }
@@ -125,21 +129,11 @@ export function GithubGraph() {
 
   const contributionLevels = useMemo<ContributionLevel[]>(
     () => [
-      {
-        cell: "bg-zinc-100 dark:bg-zinc-800",
-      },
-      {
-        cell: "bg-zinc-300 dark:bg-zinc-600",
-      },
-      {
-        cell: "bg-zinc-500 dark:bg-zinc-500",
-      },
-      {
-        cell: "bg-zinc-700 dark:bg-zinc-300",
-      },
-      {
-        cell: "bg-zinc-950 dark:bg-zinc-100",
-      },
+      { cell: "bg-[#ebedf0] dark:bg-[#161b22]" },
+      { cell: "bg-[#9be9a8] dark:bg-[#0e4429]" },
+      { cell: "bg-[#40c463] dark:bg-[#006d32]" },
+      { cell: "bg-[#30a14e] dark:bg-[#26a641]" },
+      { cell: "bg-[#216e39] dark:bg-[#39d353]" },
     ],
     []
   );
@@ -182,6 +176,11 @@ export function GithubGraph() {
     loading && totalContributions === 0
       ? "Loading GitHub contribution activity"
       : `${totalContributions} GitHub activities in the last year`;
+  const activeDays = graphWeeks.flatMap((w) => w.contributionDays).filter((d) => d.contributionCount > 0);
+  const topDay = activeDays.reduce(
+    (best, d) => (d.contributionCount > best.contributionCount ? d : best),
+    { contributionCount: 0, date: "" }
+  );
   const dashedLineMask = {
     maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
     WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
@@ -208,7 +207,16 @@ export function GithubGraph() {
             GitHub Activity
           </h2>
           <p className="text-right text-[11px] text-zinc-500 dark:text-zinc-400" aria-live="polite">
-            {graphStatus}
+            {loading && totalContributions === 0 ? (
+              "Loading GitHub contribution activity"
+            ) : (
+              <>
+                <span className="text-[20px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+                  {totalContributions}
+                </span>{" "}
+                GitHub activities in the last year
+              </>
+            )}
           </p>
         </div>
 
@@ -294,6 +302,13 @@ export function GithubGraph() {
             <span className="text-[11px] text-zinc-500 dark:text-zinc-400">More active</span>
           </div>
         </div>
+
+        {topDay.date && (
+          <p className="mt-2 text-[11px] text-zinc-500 dark:text-zinc-400">
+            Most active day: <span className="font-medium text-zinc-700 dark:text-zinc-200">{formatDate(topDay.date)}</span> —{" "}
+            <span className="font-medium text-zinc-700 dark:text-zinc-200">{topDay.contributionCount} contributions</span>
+          </p>
+        )}
 
         {tooltip && (
           <div

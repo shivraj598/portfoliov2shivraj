@@ -1,11 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { playUiSound } from "@/lib/sounds";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 import {
   type TechIcon,
@@ -19,7 +25,7 @@ import {
 export {
   type TechIcon,
   type TechKey,
-  type TechItem,
+  type TechItem, 
   type Project,
   iconMap,
   techNames,
@@ -47,7 +53,10 @@ export const ProjectCard = ({
   return (
     <div
       className="flex flex-col group cursor-pointer"
-      onClick={() => router.push(`/projects/${project.slug}`)}
+      onClick={() => {
+        playUiSound("mouseclick", 0.4);
+        router.push(`/projects/${project.slug}`);
+      }}
       onMouseEnter={() => setShouldLoadHoverImage(true)}
       onFocus={() => setShouldLoadHoverImage(true)}
       onTouchStart={() => setShouldLoadHoverImage(true)}
@@ -216,6 +225,37 @@ export const ProjectCard = ({
 
 export function ProjectsGrid({ projects }: { projects: Project[] }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const el = gridRef.current;
+      if (!el) return;
+
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(el.children, { clearProps: "all" });
+      });
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(
+          el.children,
+          { autoAlpha: 0, y: 44 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            stagger: 0.16,
+            overwrite: "auto",
+            scrollTrigger: { trigger: el, start: "top 85%", once: true },
+          }
+        );
+      });
+
+      return () => mm.revert();
+    },
+    { scope: gridRef }
+  );
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -227,7 +267,7 @@ export function ProjectsGrid({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <div className="flex flex-col relative z-10 w-full">
+      <div ref={gridRef} className="flex flex-col relative z-10 w-full">
         {/* Row 1 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-10 md:gap-y-0 pb-10 md:pb-6">
           {projects.slice(0, 2).map((project) => (
