@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e59] [cursor=pointer]
+  - alert [ref=e63]
+  - generic [ref=e64]:
+    - generic [ref=e69]:
+      - generic [ref=e70]: "00"
+      - generic [ref=e74]: "55"
+      - generic [ref=e78]: "52"
+    - generic [ref=e80]:
+      - generic [ref=e81]:
+        - link [ref=e82] [cursor=pointer]:
+          - /url: /blogs
+        - generic [ref=e85]:
+          - heading "Demo Blog Post" [level=1] [ref=e86]
+          - paragraph [ref=e87]: Blogs/Demo Blog Post
+      - generic [ref=e88]:
+        - button "⌘ K" [ref=e89] [cursor=pointer]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: ⌘
+            - generic [ref=e92]: K
+        - generic [ref=e93]:
+          - heading "Command Palette" [level=2] [ref=e94]
+          - paragraph [ref=e95]: Search for a command to run...
+        - button "Toggle theme" [ref=e96] [cursor=pointer]
+    - generic [ref=e99]:
+      - generic [ref=e100]:
+        - heading "Demo Blog Post" [level=1] [ref=e101]
+        - generic [ref=e102]:
+          - generic [ref=e103]: Aug 2026
+          - generic [ref=e108]: Demo
+      - generic [ref=e111]:
+        - paragraph [ref=e112]:
+          - text: Welcome to the demo blog post. This article lives in
+          - code [ref=e113]: content/blogs/demo-blog.md
+          - text: — write it like a regular Markdown file.
+        - heading "Why Markdown" [level=2] [ref=e114]
+        - paragraph [ref=e115]:
+          - text: No more editing React components to publish. Drop a
+          - code [ref=e116]: .md
+          - text: file into
+          - code [ref=e117]: content/blogs/
+          - text: ", fill the frontmatter, and the page builds itself."
+        - heading "What you can write" [level=2] [ref=e118]
+        - list [ref=e119]:
+          - listitem [ref=e120]: Headings, lists, and quotes
+          - listitem [ref=e121]:
+            - code [ref=e122]: inline code
+            - text: and code blocks
+          - listitem [ref=e123]:
+            - strong [ref=e124]: Bold
+            - text: and
+            - emphasis [ref=e125]: italic
+            - text: text
+          - listitem [ref=e126]:
+            - link "External links" [ref=e127] [cursor=pointer]:
+              - /url: https://github.com/shivraj598
+        - code [ref=e129]: const post = await getBlog("demo-blog"); console.log(post.title); // renders on the article page
+        - heading "Publishing" [level=2] [ref=e130]
+        - list [ref=e131]:
+          - listitem [ref=e132]:
+            - text: Add a file to
+            - code [ref=e133]: content/blogs/
+            - text: .
+          - listitem [ref=e134]:
+            - text: Run
+            - code [ref=e135]: npm run dev
+            - text: (or
+            - code [ref=e136]: npm run build
+            - text: ) — the loader picks it up.
+          - listitem [ref=e137]: Push — the site regenerates.
+        - paragraph [ref=e138]: That's it. No schema, no database, no dashboard.
