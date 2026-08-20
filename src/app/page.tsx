@@ -10,11 +10,15 @@ import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
 import Link from "next/link";
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
+import SoundLink from "@/components/SoundLink";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
 import { BannerParticles } from "@/components/BannerParticles";
+import { CursorGlow } from "@/components/CursorGlow";
 import Image from "next/image";
 import { getAllProjects } from "@/lib/content";
 import { getAllBlogs } from "@/lib/content";
+import { Reveal, RevealGroup } from "@/components/animations/reveal";
+import { SplitHeading } from "@/components/animations/split-heading";
 
 const skills = [
   { name: "React", icon: "react" },
@@ -52,7 +56,10 @@ export default async function Home() {
   const blogs = await getAllBlogs();
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
+
+      {/* Blue light following the mouse */}
+      <CursorGlow />
 
       {/* Right Side Blueprint Navigation */}
       <RightNavbar />
@@ -82,7 +89,7 @@ export default async function Home() {
       ))}
 
       {/* Cell 1: Banner */}
-      <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-black shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
+      <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-transparent shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
         <Image
           src="/ChatGPT%20Image%20May%2022%2C%202026%2C%2012_40_29%20AM.png"
           alt=""
@@ -117,15 +124,18 @@ export default async function Home() {
                   quality={90}
                   fetchPriority="high"
                   sizes="(min-width: 640px) 120px, 96px"
-                  className="h-full w-full origin-center translate-y-4 scale-[1.48] object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                  className="h-full w-full origin-center translate-y-0 scale-[1.08] object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
                 />
               </div>
             </div>
 
             <div className="flex flex-col justify-center pt-8">
-              <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
-                Shivraj Timilsena
-              </h1>
+              <SplitHeading
+                as="h1"
+                text="Shivraj Timilsena"
+                className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
+                triggerStart="top 75%"
+              />
               <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">20</p>
             </div>
           </div>
@@ -140,17 +150,22 @@ export default async function Home() {
 
       {/* Flowing Content Section */}
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
-        <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
-          Engineer / Artist. I love building, breaking, and shipping things.
-        </p>
+        <Reveal y={24} delay={0.15}>
+          <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
+            Engineer / Artist. I love building, breaking, and shipping things.
+          </p>
+        </Reveal>
 
+        <Reveal y={24} delay={0.25}>
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
           <li className="flex gap-1.5"><span>•</span><span>AI, open source, and developer tools excite me.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>I believe actions speak louder than words, so I put my code where my mouth is.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Currently building open source tools and experimental AI projects.</span></li>
         </ul>
+        </Reveal>
 
         {/* Buttons */}
+        <RevealGroup y={20} delay={0.35} stagger={0.1} start="top 80%">
         <div className="flex flex-wrap items-center gap-2 mt-4">
           <Link href="/contact">
             <SoftPillButton
@@ -185,8 +200,10 @@ export default async function Home() {
             </SoftPillButton>
           </Link>
         </div>
+        </RevealGroup>
 
         {/* Socials */}
+        <Reveal y={24}>
         <div id="contact" className="mt-6 scroll-mt-24">
           <h2 className="text-[14px] text-zinc-500 mb-2">Here are my <span className="font-medium text-zinc-800 dark:text-zinc-200">socials</span></h2>
           <div className="flex flex-wrap gap-1.5">
@@ -216,6 +233,7 @@ export default async function Home() {
             ))}
           </div>
         </div>
+        </Reveal>
 
         {/* Experiences */}
         <div id="experience" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
@@ -232,7 +250,10 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Experiences</h2>
+            <SplitHeading
+              text="Experiences"
+              className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"
+            />
             {/* Bottom full-width line */}
             <div
               className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none"
@@ -247,7 +268,9 @@ export default async function Home() {
           </div>
 
           <div className="block mt-0">
-            <ExperienceList />
+            <Reveal y={24}>
+              <ExperienceList />
+            </Reveal>
 
             {/* View All Button */}
             <div className="py-4 px-4 -mx-4 flex justify-center relative hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer rounded-b-lg mt-0">
@@ -255,7 +278,7 @@ export default async function Home() {
               {/* Bottom Line Intersections */}
               <div className="absolute bottom-0 left-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
               <div className="absolute bottom-0 right-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-              <Link href="/experience" className="relative group block mt-0">
+              <SoundLink sound="button" href="/experience" className="relative group block mt-0">
                 <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
                 <div className="relative flex items-center gap-1.5 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#09090b] dark:hover:bg-[#121214] text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
                   View All
@@ -264,7 +287,7 @@ export default async function Home() {
                     <polyline points="7 7 17 7 17 17"></polyline>
                   </svg>
                 </div>
-              </Link>
+              </SoundLink>
             </div>
           </div>
         </div>
@@ -272,7 +295,10 @@ export default async function Home() {
         {/* Projects */}
         <div id="projects" className="mt-0 flex flex-col relative z-10 scroll-mt-24">
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Projects</h2>
+            <SplitHeading
+              text="Projects"
+              className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"
+            />
 
             {/* Horizontal line below Projects heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -299,7 +325,7 @@ export default async function Home() {
 
           {/* View All Button */}
           <div className="flex justify-center -mt-[19px] pb-0 relative z-20">
-            <Link href="/projects" className="relative group block">
+            <SoundLink sound="button" href="/projects" className="relative group block">
               <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
               <div className="relative flex items-center gap-1.5 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#09090b] dark:hover:bg-[#121214] text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
                 View All
@@ -308,17 +334,21 @@ export default async function Home() {
                   <polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </div>
-            </Link>
+            </SoundLink>
           </div>
         </div>
 
         {/* Github Graph */}
-        <GithubGraph />
+        <Reveal y={24}>
+          <GithubGraph />
+        </Reveal>
 
         {/* Open Source Contributions */}
-        <div id="opensource" className="scroll-mt-24">
-          <OpenSourceContributions />
-        </div>
+        <Reveal y={24}>
+          <div id="opensource" className="scroll-mt-24">
+            <OpenSourceContributions />
+          </div>
+        </Reveal>
 
         {/* Skills */}
         <div id="skills" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
@@ -335,7 +365,10 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Skills & Technologies</h2>
+            <SplitHeading
+              text="Skills & Technologies"
+              className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"
+            />
 
             {/* Horizontal line below Skills heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -345,22 +378,24 @@ export default async function Home() {
           </div>
 
           <div className="relative pt-6 pb-2">
+            <RevealGroup y={22} stagger={0.05} start="top 88%">
             <div className="flex flex-wrap gap-2 w-full">
               {skills.map((skill, index) => (
                 <div key={index} className="grow flex items-center justify-center gap-2 px-3 py-1.5 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#0a0a0a] dark:hover:bg-[#121214] border border-black/30 dark:border-white/[0.15] rounded-[6px] transition-colors duration-200 cursor-default">
                   <img
-                    src={skill.icon.startsWith('http') ? skill.icon : `https://cdn.simpleicons.org/${skill.icon}/71717a`}
+                    src={skill.icon.startsWith('http') ? skill.icon : `https://cdn.simpleicons.org/${skill.icon}`}
                     alt={skill.name}
                     width={14}
                     height={14}
                     loading="lazy"
                     decoding="async"
-                    className={`h-3.5 w-3.5 opacity-80 ${skill.icon.startsWith('http') ? 'rounded-sm grayscale' : ''}`}
+                    className={`h-3.5 w-3.5 opacity-80 ${skill.icon.startsWith('http') ? 'rounded-sm' : ''}`}
                   />
                   <span className="text-[13px] font-medium text-zinc-600 dark:text-zinc-400">{skill.name}</span>
                 </div>
               ))}
             </div>
+            </RevealGroup>
           </div>
         </div>
 
@@ -379,7 +414,10 @@ export default async function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Blogs</h2>
+            <SplitHeading
+              text="Blogs"
+              className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"
+            />
 
             {/* Horizontal line below Blogs heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -392,6 +430,7 @@ export default async function Home() {
         </div>
 
         {/* Minimal Quote Section */}
+        <Reveal y={20}>
         <div className="mt-12 flex flex-col items-center justify-center relative py-12">
           <div className="max-w-[480px] w-full flex flex-col items-center">
             <h3 className="text-[16px] font-medium text-center leading-relaxed text-zinc-500 dark:text-zinc-400 mb-6 italic">
@@ -405,6 +444,7 @@ export default async function Home() {
             </div>
           </div>
         </div>
+        </Reveal>
 
         {/* Fading Grid Filler */}
         <div className="flex-grow w-[calc(100%+32px)] -mx-4 h-[300px] relative mt-4">

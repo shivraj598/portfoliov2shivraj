@@ -8,12 +8,49 @@ import { FooterBackground } from "@/components/FooterBackground";
 import { ProjectCard } from "@/components/ProjectsGrid";
 import type { Project } from "@/data/projectsData";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft } from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { playUiSound } from "@/lib/sounds";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function ProjectsIndex({ projects }: { projects: Project[] }) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const rowsRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const el = rowsRef.current;
+      if (!el) return;
+
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set(el.children, { clearProps: "all" });
+      });
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(
+          el.children,
+          { autoAlpha: 0, y: 44 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            stagger: 0.14,
+            overwrite: "auto",
+            scrollTrigger: { trigger: el, start: "top 82%", once: true },
+          }
+        );
+      });
+
+      return () => mm.revert();
+    },
+    { scope: rowsRef }
+  );
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -25,7 +62,7 @@ export default function ProjectsIndex({ projects }: { projects: Project[] }) {
 
   return (
     <>
-      <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+      <div className="min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
         {/* Right Side Blueprint Navigation */}
         <RightNavbar />
 
@@ -68,6 +105,7 @@ export default function ProjectsIndex({ projects }: { projects: Project[] }) {
             <div className="flex items-center gap-5">
               <Link
                 href="/"
+                onClick={() => playUiSound("back")}
                 className="group flex items-center justify-center w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
               >
                 <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
@@ -100,7 +138,7 @@ export default function ProjectsIndex({ projects }: { projects: Project[] }) {
             {/* Top Center Intersection */}
             <div className="absolute top-0 left-1/2 w-[2px] h-[2px] bg-black/40 dark:bg-white/[0.25] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20 hidden md:block" />
 
-            <div className="flex flex-col relative z-10 w-full">
+            <div ref={rowsRef} className="flex flex-col relative z-10 w-full">
               {Array.from({ length: Math.ceil(projects.length / 2) }).map((_, rowIndex) => {
                 const rowProjects = projects.slice(rowIndex * 2, rowIndex * 2 + 2);
                 return (

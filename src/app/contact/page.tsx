@@ -1,5 +1,6 @@
 "use client";
 
+import { Reveal } from "@/components/animations/reveal";
 import React, { useState } from "react";
 import { FooterBackground } from "@/components/FooterBackground";
 import { CommandMenu } from "@/components/command-menu";
@@ -11,6 +12,7 @@ import DisplacementText from "@/components/DisplacementText";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
+import { playUiSound } from "@/lib/sounds";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -54,7 +56,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full relative overflow-x-hidden transition-colors duration-300">
       <style dangerouslySetInnerHTML={{
         __html: `
         input:-webkit-autofill,
@@ -117,6 +119,7 @@ export default function ContactPage() {
           <div className="flex items-center gap-5">
             <Link
               href="/"
+              onClick={() => playUiSound("back")}
               className="group flex items-center justify-center w-8 h-8 rounded-md bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/50 dark:border-zinc-800/50 text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all hover:bg-zinc-200 dark:hover:bg-zinc-800"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
@@ -140,7 +143,7 @@ export default function ContactPage() {
       </div>
 
       {/* Content Section */}
-      <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-8 md:px-4 flex flex-col z-10 relative">
+      <Reveal as="div" y={20} className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-8 md:px-4 flex flex-col z-10 relative">
         {/* Form */}
         <form onSubmit={handleSubmit} className="mt-12 -mx-8 space-y-10 md:-mx-4">
           {/* FormSubmit Configuration */}
@@ -262,7 +265,8 @@ export default function ContactPage() {
             />
           </div>
         </div>
-      </div>
+      </Reveal>
+
     </div>
   );
 }
