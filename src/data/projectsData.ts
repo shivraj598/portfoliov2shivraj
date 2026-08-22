@@ -50,6 +50,7 @@ export interface Project {
   starsText?: string;
   backgroundImage?: string;
   hasPin: boolean;
+  hidden?: boolean;
 }
 
 export const iconMap: Record<TechKey, TechIcon> = {
