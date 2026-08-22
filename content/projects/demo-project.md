@@ -13,6 +13,7 @@ tech:
 github: https://github.com/shivraj598
 live: ""
 hasPin: false
+hidden: true
 ---
 
 ## About this project
