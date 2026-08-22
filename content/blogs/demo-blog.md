@@ -4,6 +4,7 @@ date: "Aug 2026"
 claps: 0
 tags:
   - Demo
+hidden: true
 ---
 
 Welcome to the demo blog post. This article lives in
