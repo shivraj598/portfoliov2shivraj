@@ -16,6 +16,7 @@ export interface Blog {
   date: string;
   claps: number;
   tags: string[];
+  hidden?: boolean;
 }
 
 export interface BlogPost extends Blog {
@@ -73,7 +74,9 @@ function techList(file: string, data: unknown, key: string): TechKey[] {
 }
 
 export function getAllProjects(): Project[] {
-  return readMarkdownFiles(PROJECTS_DIR).map(parseProject);
+  return readMarkdownFiles(PROJECTS_DIR)
+    .map(parseProject)
+    .filter((p) => !p.hidden);
 }
 
 export function getProjectContent(slug: string): ProjectPost | undefined {
@@ -91,6 +94,7 @@ export function getProject(slug: string): Project | undefined {
 export function getAllBlogs(): BlogPost[] {
   return readMarkdownFiles(BLOGS_DIR)
     .map(parseBlog)
+    .filter((b) => !b.hidden)
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
 
@@ -137,6 +141,7 @@ function parseProject(file: string): ProjectPost {
     starsText: optionalString(file, data, "starsText") || undefined,
     backgroundImage: optionalString(file, data, "backgroundImage") || undefined,
     hasPin: optionalBool(data, "hasPin"),
+    hidden: optionalBool(data, "hidden"),
     body: content,
   };
 }
@@ -156,6 +161,7 @@ function parseBlog(file: string): BlogPost {
     date: optionalString(file, data, "date") || fail(file, `missing required frontmatter field "date"`),
     claps: typeof data?.claps === "number" ? data.claps : 0,
     tags: rawTags,
+    hidden: optionalBool(data, "hidden"),
     body: content,
   };
 }
