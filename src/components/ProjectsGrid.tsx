@@ -52,7 +52,7 @@ export const ProjectCard = ({
 
   return (
     <div
-      className="flex flex-col group cursor-pointer"
+      className="flex flex-col group cursor-pointer h-full"
       onClick={() => {
         playUiSound("mouseclick", 0.4);
         router.push(`/projects/${project.slug}`);
@@ -152,7 +152,7 @@ export const ProjectCard = ({
       </motion.div>
 
       {/* Content Area directly below the wrapper */}
-      <div className="mt-4 flex flex-col px-0.5">
+      <div className="mt-4 flex flex-1 flex-col px-0.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
           <h3 className="text-[15px] font-bold text-zinc-900 dark:text-zinc-100 leading-tight">{project.title}</h3>
 
@@ -162,11 +162,11 @@ export const ProjectCard = ({
           </div>
         </div>
 
-        <p className="mt-2 sm:mt-1.5 text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed pr-2">
+        <p className="mt-2 sm:mt-1.5 text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed pr-2 line-clamp-3 min-h-[63px]">
           {project.description}
         </p>
 
-        <div className="flex items-center justify-between gap-3 mt-3">
+        <div className="flex items-center justify-between gap-3 mt-auto pt-3">
           <div className="flex gap-2 flex-wrap">
             {project.tech.map((item) => {
               const key = typeof item === "string" ? item : item.label;
