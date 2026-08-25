@@ -24,11 +24,11 @@ hasPin: true
 **DocMindAI** is an intelligent RAG system that classifies every query into one of
 three routes and answers it from the best available source:
 
-```
+```text
 User Query -> query_analysis
   ├── "index"   -> retriever -> grade
-  │                ^            ├── "yes" -> generate -> response
-  │                └── rewrite -┘ "no"
+  │                ├── "yes" -> generate -> response
+  │                └── "no"  -> rewrite -> retriever (up to 3 attempts)
   ├── "general" -> general_llm -> response
   └── "search"  -> web_search  -> generate -> response
 ```
