@@ -1,8 +1,8 @@
 ---
 title: ProjectFlow
 imageTitle: ProjectFlow Dashboard
-src: /project-image/projectflow/demo-dark.png
-lightModeSrc: /project-image/projectflow/demo-light.png
+src: /projectImages/projectflow/demo-dark.png
+lightModeSrc: /projectImages/projectflow/demo-light.png
 # video: ""
 description: A real-time, multi-tenant project management platform inspired by Jira, Linear & Trello — Kanban boards, sprint planning with burndown charts, backlogs, comments, activity timelines, and live collaboration.
 tech:
