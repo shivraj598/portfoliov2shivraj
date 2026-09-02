@@ -39,7 +39,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   const post = getBlogContent(slug);
 
-  if (!post) {
+  if (!post || post.external) {
     notFound();
   }
 
@@ -147,7 +147,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {/* Body */}
         <div className="mt-4">
-          <MarkdownRenderer markdown={post.body} />
+          <MDXRemote source={post.body} components={mdxComponents} />
         </div>
       </Reveal>
     </div>
