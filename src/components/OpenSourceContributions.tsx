@@ -99,6 +99,12 @@ export function OpenSourceContributions({ isFullPage = false }: { isFullPage?: b
         body: JSON.stringify({ query }),
       });
 
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        console.warn("GitHub proxy returned non-JSON response; falling back to cached/empty state.");
+        setLoadedTypes(prev => new Set(prev).add(type));
+        return;
+      }
       const data = (await response.json()) as GitHubSearchResponse;
       if (data.data?.search?.edges) {
         const fetchedPRs = data.data.search.edges
