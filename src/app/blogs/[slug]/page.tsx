@@ -14,9 +14,11 @@ import { ArrowLeft, Calendar } from "lucide-react";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return getAllBlogs().map((post) => ({
-    slug: post.slug,
-  }));
+  return getAllBlogs()
+    .filter((post) => !post.external)
+    .map((post) => ({
+      slug: post.slug,
+    }));
 }
 
 const ClapIcon = () => (
