@@ -1,25 +1,21 @@
-import { ThemeToggle } from "@/components/theme-toggle";
 import { GithubGraph } from "@/components/GithubGraph";
-import { CurrentTime } from "@/components/CurrentTime";
 import { ProjectsGrid } from "@/components/ProjectsGrid";
 import { ExperienceList } from "@/components/ExperienceList";
 import { OpenSourceContributions } from "@/components/OpenSourceContributions";
 import { BlogList } from "@/components/BlogList";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
-import { CommandMenu } from "@/components/command-menu";
 import Link from "next/link";
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
 import SoundLink from "@/components/SoundLink";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
-import { BannerParticles } from "@/components/BannerParticles";
 import { CursorGlow } from "@/components/CursorGlow";
 import Image from "next/image";
-import banner from "./banner.png";
 import { getAllProjects } from "@/lib/content";
 import { getAllBlogs } from "@/lib/content";
 import { Reveal, RevealGroup } from "@/components/animations/reveal";
 import { SplitHeading } from "@/components/animations/split-heading";
+import { SiteHeader } from "@/components/SiteHeader";
 
 const skills = [
   { name: "React", icon: "react" },
@@ -69,85 +65,8 @@ export default async function Home() {
       <div className="absolute top-0 bottom-0 left-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
       <div className="absolute top-0 bottom-0 right-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
 
-      {/* Horizontal Lines - Ultra-fine Micro Dots */}
-      <div className="absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-      <div className="absolute left-0 right-0 top-[calc(22vh+112px)] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-
-      {/* Ultra-Tiny Solid Nodes */}
-      {[
-        { top: '22vh', left: '30%' },
-        { top: '22vh', right: '30%' },
-        { top: 'calc(22vh + 112px)', left: '30%' },
-        { top: 'calc(22vh + 112px)', right: '30%' },
-      ].map((pos, i) => (
-        <div key={i} className="absolute w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] pointer-events-none z-10 hidden md:block"
-          style={{
-            top: pos.top,
-            left: pos.left,
-            right: pos.right,
-            transform: `translate(${pos.right ? '50%' : '-50%'}, -50%)`
-          }} />
-      ))}
-
-      {/* Cell 1: Banner */}
-      <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-transparent shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
-        <Image
-          src={banner}
-          alt=""
-          fill
-          fetchPriority="high"
-          sizes="(min-width: 768px) 40vw, 100vw"
-          quality={100}
-          className="object-cover object-center"
-        />
-        <BannerParticles />
-        <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/90 to-transparent dark:from-black/50 dark:to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-        <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
-          <CurrentTime />
-        </div>
-      </div>
-
-      {/* Cell 2: Profile Section - 112px height to wrap the framed image (13px gap top/bottom) */}
-      <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-[22vh] h-[112px] flex items-center px-4 z-50">
-        <div className="flex w-full items-center justify-between">
-
-          <div className="flex items-center gap-4 sm:gap-5">
-            <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-black/30 dark:border-white/[0.15] shrink-0">
-              {/* The inner image */}
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                <Image
-                  src="https://github.com/shivraj598.png"
-                  alt="Profile"
-                  width={240}
-                  height={240}
-                  quality={90}
-                  fetchPriority="high"
-                  sizes="(min-width: 640px) 120px, 96px"
-                  className="h-full w-full origin-center translate-y-0 scale-[1.08] object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col justify-center pt-8">
-              <SplitHeading
-                as="h1"
-                text="Shivraj Timilsena"
-                className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
-                triggerStart="top 75%"
-              />
-              <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">Full Stack Developer · Advancing in AIML</p>
-            </div>
-          </div>
-
-          <div className="flex items-start justify-end gap-2 sm:gap-3 h-20 sm:h-24 py-1">
-            <CommandMenu />
-            <ThemeToggle className="dark:text-zinc-400 hover:dark:text-zinc-300" />
-          </div>
-
-        </div>
-      </div>
+      {/* Fixed Header: Banner + Profile */}
+      <SiteHeader variant="home" />
 
       {/* Flowing Content Section */}
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
