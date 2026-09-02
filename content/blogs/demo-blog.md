@@ -12,7 +12,7 @@ hidden: true
 
 # Local blog format (on-site MDX)
 
-This is a **hidden** local template. It lives in `content/blogs/demo-blog.mdx`
+This is a **hidden** local template. It lives in `content/blogs/demo-blog.md`
 (you can use `.md` or `.mdx`). Write it like Markdown and drop in React
 components when you use the `.mdx` extension.
 
