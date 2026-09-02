@@ -14,8 +14,11 @@ export interface Blog {
   slug: string;
   title: string;
   date: string;
+  description: string;
   claps: number;
   tags: string[];
+  external: boolean;
+  url: string;
   hidden?: boolean;
 }
 
@@ -33,7 +36,7 @@ function readMarkdownFiles(dir: string): string[] {
   }
   return fs
     .readdirSync(dir)
-    .filter((name) => name.endsWith(".md"))
+    .filter((name) => name.endsWith(".md") || name.endsWith(".mdx"))
     .map((name) => path.join(dir, name))
     .sort();
 }
@@ -100,9 +103,11 @@ export function getAllBlogs(): BlogPost[] {
 
 export function getBlogContent(slug: string): BlogPost | undefined {
   if (!/^[a-z0-9-]+$/.test(slug)) return undefined;
-  const file = path.join(BLOGS_DIR, `${slug}.md`);
-  if (!fs.existsSync(file)) return undefined;
-  return parseBlog(file);
+  for (const ext of [".md", ".mdx"]) {
+    const file = path.join(BLOGS_DIR, `${slug}${ext}`);
+    if (fs.existsSync(file)) return parseBlog(file);
+  }
+  return undefined;
 }
 
 export function getBlog(slug: string): Blog | undefined {
@@ -116,7 +121,8 @@ function stripBody<T extends { body: string }>(post: T): Omit<T, "body"> {
 }
 
 function contentSlug(file: string): string {
-  const slug = path.basename(file, ".md");
+  const base = path.basename(file);
+  const slug = base.endsWith(".mdx") ? base.slice(0, -4) : path.basename(file, ".md");
   if (!/^[a-z0-9-]+$/.test(slug)) {
     return fail(file, `filename must be lowercase letters, numbers or dashes (got "${slug}")`);
   }
@@ -159,8 +165,11 @@ function parseBlog(file: string): BlogPost {
     slug: contentSlug(file),
     title: requiredString(file, data, "title"),
     date: optionalString(file, data, "date") || fail(file, `missing required frontmatter field "date"`),
+    description: optionalString(file, data, "description"),
     claps: typeof data?.claps === "number" ? data.claps : 0,
     tags: rawTags,
+    external: optionalBool(data, "external"),
+    url: optionalString(file, data, "url"),
     hidden: optionalBool(data, "hidden"),
     body: content,
   };
