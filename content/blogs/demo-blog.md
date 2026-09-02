@@ -48,6 +48,24 @@ claps: 12
 
 Clicking that card opens the URL in a new tab. No local article page is built.
 
+## Images in posts
+
+Add images to `public/blog-images/` (e.g. `public/blog-images/diagram.png`),
+then reference them by path — they render centered in a rounded frame:
+
+```mdx
+![Alt text shown on the image](/blog-images/diagram.png)
+```
+
+Add an optional caption with a quoted title:
+
+```mdx
+![RAG pipeline](/blog-images/diagram.png "Figure 1: The RAG pipeline")
+```
+
+Remote images (absolute `https://...` URLs) work too; the block is styled the
+same way.
+
 ## Markdown you can use
 
 - Headings, lists, and quotes
