@@ -7,7 +7,7 @@ tags:
   - Template
 external: false
 url: ""
-hidden: false
+hidden: true
 ---
 
 # Local blog format (on-site MDX)
