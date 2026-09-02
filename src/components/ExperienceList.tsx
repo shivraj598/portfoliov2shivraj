@@ -20,20 +20,42 @@ type ExperienceData = {
 
 const experiences: ExperienceData[] = [
   {
-    title: "Google Summer of Code",
-    role: "Open Source Contributor",
-    dates: "2025 - 2026",
-    location: "Remote",
-    src: "/Experience-image/gsoc.png",
-    imageFit: "contain",
+    title: "ProjectFlow",
+    role: "Full-Stack SaaS · Founder & Developer",
+    dates: "2025",
+    location: "Personal Project",
+    src: "/projectImages/projectflow/demo-dark.png",
+    type: "Full-Stack SaaS",
+    imageFit: "cover",
     imageZoom: 1,
     description: `
-      Built scalable solutions for open source organizations
-      Received mentorship from top engineers and industry experts
-      Contributed real-world features that impacted thousands of users
-      Optimized codebase performance and reduced technical debt significantly
+      Real-time, multi-tenant project management platform inspired by Jira, Linear & Trello
+      Kanban boards with drag-and-drop, WIP limits, labels & priorities via dnd-kit
+      Sprint planning with burndown charts, backlogs, task sheets & activity timelines
+      Role-based access (Admin / Manager / Member) enforced on the backend
+      Real-time collaboration with Socket.IO board sync && instant query invalidation
+      Multi-tenant isolation across Orgs -> Workspaces -> Projects
+      Built with Express 5, Prisma (D1), React 19, Tailwind & Radix, deployed on Cloudflare Workers + D1
     `,
-    tech: ["Next.js", "TypeScript", "React", "Node.js"],
+    tech: ["React", "TypeScript", "Express", "Prisma", "Socket.IO", "Tailwind", "Cloudflare", "D1"],
+  },
+  {
+    title: "DocMindAI Adaptive RAG",
+    role: "AI Engineer · RAG Developer",
+    dates: "2025",
+    location: "Personal Project",
+    src: "/projectImages/docmind-ai/landing.png",
+    type: "RAG / AI",
+    imageFit: "cover",
+    imageZoom: 1,
+    description: `
+      Intelligent Retrieval-Augmented Generation system over indexed documents
+      Adaptive query routing to indexed docs, general LLM knowledge, or web search
+      LangGraph orchestration pipeline for retrieval and routing
+      FastAPI backend with a modern React + TypeScript frontend
+      Document indexing, embeddings, and semantic retrieval pipeline
+    `,
+    tech: ["Python", "FastAPI", "LangChain", "LangGraph", "RAG", "React", "TypeScript"],
   },
 ];
 
