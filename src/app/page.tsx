@@ -46,6 +46,17 @@ const skills = [
   { name: "Figma", icon: "figma" },
   { name: "Docker", icon: "docker" },
   { name: "Linux", icon: "linux" },
+  { name: "FastAPI", icon: "fastapi" },
+  { name: "REST APIs", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swagger/swagger-original.svg" },
+  { name: "LangChain", icon: "langchain" },
+  { name: "LangGraph", icon: "langgraph" },
+  { name: "NumPy", icon: "numpy" },
+  { name: "Pandas", icon: "pandas" },
+  { name: "Scikit-Learn", icon: "scikitlearn" },
+  { name: "PyTorch", icon: "pytorch" },
+  { name: "ChromaDB", icon: "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/chroma.svg" },
+  { name: "Supabase", icon: "supabase" },
+  { name: "Cloudflare", icon: "cloudflare" },
 ];
 
 export default async function Home() {
