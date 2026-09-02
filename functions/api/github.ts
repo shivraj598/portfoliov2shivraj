@@ -5,6 +5,7 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
 
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
+      "User-Agent": "portfolio-v2-shivraj",
     };
     if (token) {
       headers["Authorization"] = `Bearer ${token}`;
@@ -16,10 +17,17 @@ export const onRequestPost: PagesFunction = async ({ request, env }) => {
       body: JSON.stringify({ query }),
     });
 
-    const data = await response.json();
-    if (
-      (data?.errors || []).some((e: { type?: string }) => e.type === "RATE_LIMITED")
-    ) {
+    const text = await response.text();
+    let data: { data?: unknown; errors?: { type?: string; message?: string }[] } | null = null;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      return new Response(
+        JSON.stringify({ error: `GitHub returned non-JSON response (HTTP ${response.status})` }),
+        { status: 502, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    if ((data?.errors || []).some((e) => e.type === "RATE_LIMITED")) {
       return new Response(JSON.stringify({ error: "GitHub API rate limit exceeded" }), {
         status: 429,
         headers: { "Content-Type": "application/json" },
