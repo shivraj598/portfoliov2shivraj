@@ -1,5 +1,6 @@
 import { getAllBlogs, getBlogContent } from "@/lib/content";
-import { MarkdownRenderer } from "@/components/markdown-renderer";
+import { MDXRemote } from "next-mdx-remote-client/rsc";
+import { mdxComponents } from "@/lib/mdx-components";
 import { Reveal } from "@/components/animations/reveal";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { CommandMenu } from "@/components/command-menu";
