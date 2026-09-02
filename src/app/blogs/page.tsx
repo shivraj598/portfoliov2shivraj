@@ -95,12 +95,11 @@ export default async function BlogsPage() {
           {posts.map((post, idx) => {
             const isLast = idx === posts.length - 1;
 
-            return (
-              <SoundLink sound="click"
-                href={`/blogs/${post.slug}`}
-                key={post.slug}
-                className="group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer"
-              >
+            const cardClass =
+              "group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer";
+
+            const cardInner = (
+              <>
                 {!isLast && (
                   <div
                     className="absolute bottom-0 left-0 right-0 h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none z-10"
@@ -125,11 +124,17 @@ export default async function BlogsPage() {
                   </>
                 )}
 
-                <div className="flex items-start sm:items-center justify-between w-full">
+                <div className="flex items-start justify-between w-full">
                   <div className="flex flex-col gap-2.5">
                     <h3 className="text-[14px] md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors pr-6">
                       {post.title}
                     </h3>
+
+                    {post.description && (
+                      <p className="text-[12.5px] leading-relaxed text-zinc-500 dark:text-zinc-400 pr-6">
+                        {post.description}
+                      </p>
+                    )}
 
                     <div className="flex flex-wrap items-center gap-4 text-[12px] text-zinc-500 dark:text-zinc-400">
                       <div className="flex items-center gap-1.5">
@@ -160,10 +165,38 @@ export default async function BlogsPage() {
                   </div>
 
                   <div className="ml-4 flex-shrink-0 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
-                    <ArrowRight className="w-4 h-4" />
+                    {post.external ? (
+                      <ArrowUpRight className="w-4 h-4" />
+                    ) : (
+                      <ArrowRight className="w-4 h-4" />
+                    )}
                   </div>
                 </div>
-          </SoundLink>
+              </>
+            );
+
+            if (post.external && post.url) {
+              return (
+                <a
+                  href={post.url}
+                  key={post.slug}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cardClass}
+                >
+                  {cardInner}
+                </a>
+              );
+            }
+
+            return (
+              <SoundLink sound="click"
+                href={`/blogs/${post.slug}`}
+                key={post.slug}
+                className={cardClass}
+              >
+                {cardInner}
+              </SoundLink>
             );
           })}
         </RevealGroup>
