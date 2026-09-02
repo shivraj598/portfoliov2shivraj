@@ -137,7 +137,7 @@ export default async function Home() {
                 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
                 triggerStart="top 75%"
               />
-              <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">20</p>
+              <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">Full Stack Developer · Advancing in AIML</p>
             </div>
           </div>
 
