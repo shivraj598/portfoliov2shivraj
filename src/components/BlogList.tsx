@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Calendar } from "lucide-react";
 import type { Blog } from "@/lib/content";
 import { playUiSound } from "@/lib/sounds";
 import { gsap } from "gsap";
