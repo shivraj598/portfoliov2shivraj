@@ -1,6 +1,24 @@
 import type { MDXComponents } from "mdx/types";
 
 export const mdxComponents: MDXComponents = {
+  img: ({ src, alt, title }) => (
+    <figure className="my-6">
+      <span className="block overflow-hidden rounded-xl border border-black/10 dark:border-white/10 bg-zinc-50 dark:bg-zinc-900">
+        <img
+          src={src}
+          alt={alt || ""}
+          loading="lazy"
+          decoding="async"
+          className="block w-full h-auto"
+        />
+      </span>
+      {title ? (
+        <figcaption className="mt-2 text-[12px] text-zinc-500 dark:text-zinc-400 text-center">
+          {title}
+        </figcaption>
+      ) : null}
+    </figure>
+  ),
   h1: ({ children }) => (
     <h1 className="text-[22px] font-bold text-zinc-900 dark:text-zinc-50 tracking-tight mt-8 mb-4 first:mt-0">
       {children}
