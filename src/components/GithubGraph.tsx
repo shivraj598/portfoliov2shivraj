@@ -101,6 +101,11 @@ export function GithubGraph() {
           body: JSON.stringify({ query }),
         });
 
+        const contentType = response.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          console.warn("GitHub proxy returned non-JSON response; skipping contribution graph.");
+          return;
+        }
         const data = await response.json();
         const calendar = data?.data?.user?.contributionsCollection?.contributionCalendar;
         
