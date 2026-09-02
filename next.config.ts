@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
+import path from "node:path";
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    root: path.join(process.cwd()),
+  },
   images: {
     deviceSizes: [360, 414, 640, 768, 1024, 1280],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
