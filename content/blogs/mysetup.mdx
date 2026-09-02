@@ -1,0 +1,96 @@
+---
+title: My Setup, 2026
+description: "The hardware, editor, and CLI stack I actually use every day to design and ship — from the M-series Mac to the terminal dots I can't ship without."
+date: "Sep 2026"
+claps: 0
+tags:
+  - Setup
+  - Tools
+external: false
+url: ""
+hidden: false
+---
+
+People ask how I build the things on this site, and honestly the answer is 90% *boring*. The interesting part isn't the gear — it's that I stopped switching tools and started tuning the ones I kept. Here's everything, in the order I touch it during a workday.
+
+## Hardware
+
+MacBook Pro (M3 Pro, 14") — 18 GB, 1 TB. This is the whole desk. I've used Intel machines for years and the M series is the first laptop where I never think about the fans or the build process again.
+
+- **External**: a cheap 27" 4K panel when I'm at the desk (color-accurate-ish, doesn't need to be anything fancier).
+- **Keyboard**: the built-in Magic Keyboard. I know, boring. I tried mechanical for two weeks; the key travel turned out to be the thing I *didn't* want.
+- **Mouse/trackpad**: Logitech MX Master 3S for long sessions, the trackpad for the laptop bag. The MX's scroll wheel is worth the money alone.
+
+## Editor
+
+I live in Visual Studio Code. That's it — no Neovim cult re-entry. What matters is that it's configured to *feel* fast:
+
+- **Theme**: a hand-rolled dark theme. RGB off except a single coral accent I use for errors so they physically pop.
+- **Font**: JetBrains Mono, 13px, ligatures on. I have zero aesthetic interest in fonts beyond "can I tell `0` from `O` at a glance" — JetBrains wins that.
+- **Extensions the build breaks without**: exactly three. Prettier, ESLint, Tailwind CSS IntelliSense. Everything else is garnish.
+- **The rule I actually follow**: if I reach for a feature twice, I bind it to a shortcut. Command+Shift+P is for the rare thing, the rest is muscle memory.
+
+```json
+{
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontSize": 13,
+  "editor.minimap.enabled": false,
+  "files.autoSave": "afterDelay"
+}
+```
+
+## Terminal
+
+The default macOS Terminal, zsh, and **Oh My Zsh** — but trimmed to almost nothing. No heavy prompt theme, no plugin wall. My whole dotfiles philosophy is: *the shell is a calculator with a history, not a dashboard*.
+
+The two things I can't code without:
+
+1. **zsh-autosuggestions** — the grayed-out ghost text that completes my history as I type. Once you have it, plain terminals feel broken.
+2. **zoxide** — `z ~pe/meroUI` in three keystrokes instead of spelunking `cd` chains.
+
+Aliases I actually use daily:
+
+```bash
+alias gs='git status'
+alias ga='git add -A'
+alias gc='git commit -m'
+alias gl='git log --oneline -10'
+alias bp='pnpm build'
+alias d='npm run dev'
+```
+
+## Browsers
+
+Chrome for building, all day. The DevTools in the latest versions are good enough now that I don't keep a second browser around or reach for a `--disable` flag the way I used to.
+
+Two tabs I keep pinned on every project:
+
+- `http://localhost:3000` — the site, constantly.
+- The PR list for whatever I'm working on, GitHub PRs sorted by "needs review".
+
+I ship with **three browser profiles** — work, personal, and a clean "test" profile with zero extensions — because half of all CSS bugs turn out to be a stale extension.
+
+## Terminal bell: the missing layer
+
+Everything above is replaceable. The one thing I refuse to drop is the **sound layer** — and yes, that's a theme on this site too.
+
+My shell beeps on long build finishes and my editor has a soft click. When `npm run build` finishes with an error you *hear* it fail, so I can leave the terminal and come back when it's done. It sounds like a gimmick but it saves me ten minutes a day of staring at logs.
+
+## The actual stack
+
+The boring, reliable core that stays consistent across projects:
+
+| Layer | Choice | Why it stays |
+| ----- | ------ | ------------ |
+| Framework | Next.js + TypeScript | SSG by default, easy static exports |
+| Styling | Tailwind CSS | I stopped writing CSS-class names years ago |
+| Animation | GSAP + Framer Motion | GSAP for scroll/scrolltrigger, Motion for UI |
+| 3D | Three.js + react-three-fiber | when a page needs texture, not gimmick |
+| Deploy | Cloudflare | static-first, cheap, global |
+| AI side | LangGraph + FastAPI | for the RAG/research experiments |
+
+I don't chase new tools weekly. I chase *reliability* — and these all have a decade of docs, a huge community, and a version history that doesn't break me every six months.
+
+## What I'd change
+
+Honestly: nothing drastic. I'd probably move to a 16" if I sat at a desk all day, and I keep flirting with `bun` as a full-time package manager instead of npm. But every "switch" I've tried this year has come back with the same lesson — the tool you already know, tuned aggressively, beats the shiny one you have to re-learn. That's the whole setup.
