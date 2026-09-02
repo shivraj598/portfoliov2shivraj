@@ -80,13 +80,10 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
       {blogs.map((blog, idx) => {
         const isLast = idx === blogs.length - 1;
 
-        return (
-          <Link
-            href={`/blogs/${blog.slug}`}
-            key={idx}
-            onClick={() => playUiSound("click", 0.4)}
-            className="group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer"
-          >
+        const cardClass =
+          "group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer";
+        const cardInner = (
+          <>
             {/* Dashed bottom border for all items except the last one */}
             {!isLast && (
               <div
@@ -113,11 +110,17 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
               </>
             )}
 
-            <div className="flex items-start sm:items-center justify-between w-full">
+            <div className="flex items-start justify-between w-full">
               <div className="flex flex-col gap-2.5">
                 <h3 className="text-[14px] md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors pr-6">
                   {blog.title}
                 </h3>
+
+                {blog.description && (
+                  <p className="text-[12.5px] leading-relaxed text-zinc-500 dark:text-zinc-400 pr-6">
+                    {blog.description}
+                  </p>
+                )}
 
                 <div className="flex flex-wrap items-center gap-4 text-[12px] text-zinc-500 dark:text-zinc-400">
                   <div className="flex items-center gap-1.5">
@@ -147,9 +150,39 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
               </div>
 
               <div className="ml-4 flex-shrink-0 text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-100 transition-colors">
-                <ArrowRight className="w-4 h-4" />
+                {blog.external ? (
+                  <ArrowUpRight className="w-4 h-4" />
+                ) : (
+                  <ArrowRight className="w-4 h-4" />
+                )}
               </div>
             </div>
+          </>
+        );
+
+        if (blog.external && blog.url) {
+          return (
+            <a
+              href={blog.url}
+              key={idx}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => playUiSound("click", 0.4)}
+              className={cardClass}
+            >
+              {cardInner}
+            </a>
+          );
+        }
+
+        return (
+          <Link
+            href={`/blogs/${blog.slug}`}
+            key={idx}
+            onClick={() => playUiSound("click", 0.4)}
+            className={cardClass}
+          >
+            {cardInner}
           </Link>
         );
       })}
