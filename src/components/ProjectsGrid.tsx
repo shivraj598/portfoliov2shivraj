@@ -54,7 +54,7 @@ export const ProjectCard = ({
     <div
       className="flex flex-col group cursor-pointer h-full"
       onClick={() => {
-        playUiSound("mouseclick", 0.4);
+        playUiSound("mouseclick", 0.18);
         router.push(`/projects/${project.slug}`);
       }}
       onMouseEnter={() => setShouldLoadHoverImage(true)}
