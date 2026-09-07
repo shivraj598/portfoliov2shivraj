@@ -130,6 +130,17 @@ export default async function Home() {
               </div>
             </SoftPillButton>
           </Link>
+          <a href="/resume/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <SoftPillButton
+              as="span"
+              variant="secondary"
+              className="px-3 py-1.5 !text-[12px]"
+            >
+              <div className="flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                Resume
+              </div>
+            </SoftPillButton>
+          </a>
         </div>
         </RevealGroup>
 
