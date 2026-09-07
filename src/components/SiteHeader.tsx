@@ -100,7 +100,7 @@ export function SiteHeader(props: SiteHeaderProps) {
 
       {/* Cell 2: Header Row */}
       <div
-        className="absolute left-0 right-0 md:left-[30%] md:right-[30%] flex items-center px-4 bg-[#f4f4f2] dark:bg-black transition-[top,height] duration-300 ease-in-out"
+        className="absolute left-0 right-0 md:left-[30%] md:right-[30%] flex items-center px-4 bg-[#ebe9e4] dark:bg-black transition-[top,height] duration-300 ease-in-out"
         style={{ top: bannerH, height: rowH }}
       >
         <div className="flex w-full items-center justify-between">
