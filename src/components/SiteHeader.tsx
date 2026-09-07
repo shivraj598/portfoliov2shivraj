@@ -133,16 +133,30 @@ export function SiteHeader(props: SiteHeaderProps) {
                 className="flex flex-col justify-center transition-all duration-300 ease-in-out"
                 style={{ paddingTop: isScrolled ? 4 : 32 }}
               >
-                <SplitHeading
-                  as="h1"
-                  text="Shivraj Timilsena"
-                  className={
-                    isScrolled
-                      ? "text-[16px] sm:text-[18px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
-                      : "text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
-                  }
-                  triggerStart="top 75%"
-                />
+                <div className="flex items-center gap-2 flex-wrap">
+                  <SplitHeading
+                    as="h1"
+                    text="Shivraj Timilsena"
+                    className={
+                      isScrolled
+                        ? "text-[16px] sm:text-[18px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
+                        : "text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]"
+                    }
+                    triggerStart="top 75%"
+                  />
+                  <span
+                    title="Available for work"
+                    className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/10 border border-emerald-500/30 transition-all duration-300 ease-in-out"
+                  >
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                    </span>
+                    <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 leading-none">
+                      Available
+                    </span>
+                  </span>
+                </div>
                 <p
                   className="text-zinc-500 dark:text-zinc-400 transition-all duration-300 ease-in-out"
                   style={{ fontSize: isScrolled ? 11 : undefined }}
