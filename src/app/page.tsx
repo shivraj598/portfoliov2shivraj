@@ -5,6 +5,7 @@ import { OpenSourceContributions } from "@/components/OpenSourceContributions";
 import { BlogList } from "@/components/BlogList";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
+import Link from "next/link";
 
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
 import SoundLink from "@/components/SoundLink";
@@ -83,15 +84,16 @@ export default async function Home() {
       <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
         <Reveal y={24} delay={0.15}>
           <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
-            Engineer / Artist. I love building, breaking, and shipping things.
+            A developer who loves to build, break, and ship polished products.
           </p>
         </Reveal>
 
         <Reveal y={24} delay={0.25}>
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
           <li className="flex gap-1.5"><span>•</span><span>AI, open source, and developer tools excite me.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>I believe actions speak louder than words, so I put my code where my mouth is.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Currently building open source tools and experimental AI projects.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span className="font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent">Neovim is my go-to IDE.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Currently advancing in AIML — building and coding my own UI library, open-source tools, and <Link href="/projects" className="font-medium text-zinc-800 dark:text-zinc-200 underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors">experimental AI projects</Link>, focused on fine-tuning, RAG, and agentic tools.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>I also write blogs — <Link href="/blogs" className="font-medium text-zinc-800 dark:text-zinc-200 underline decoration-zinc-300 dark:decoration-zinc-700 underline-offset-4 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors">read my blogs</Link>.</span></li>
         </ul>
         </Reveal>
 
