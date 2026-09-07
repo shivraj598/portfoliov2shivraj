@@ -48,7 +48,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col carbon-fiber dark:text-zinc-50 transition-colors duration-300">
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
