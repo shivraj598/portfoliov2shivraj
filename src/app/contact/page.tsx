@@ -15,6 +15,7 @@ export default function ContactPage() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitState, setSubmitState] = useState<"idle" | "success" | "error">("idle");
 
   const isFormValid =
     formData.name.trim() !== "" &&
@@ -25,25 +26,31 @@ export default function ContactPage() {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
+    setSubmitState("idle");
 
     const form = e.currentTarget;
     const data = new FormData(form);
 
     try {
       const response = await fetch(
-        "https://formsubmit.co/ajax/as1142120@gmail.com",
+        "https://formsubmit.co/ajax/timilsenashivraj598@gmail.com",
         {
           method: "POST",
           body: data,
+          headers: { Accept: "application/json" },
         }
       );
 
       if (response.ok) {
         form.reset();
         setFormData({ name: "", email: "", message: "" });
+        setSubmitState("success");
+      } else {
+        setSubmitState("error");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setSubmitState("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -147,7 +154,7 @@ export default function ContactPage() {
           </div>
 
           {/* FlightButton with airplane animation - wrapped in premium border */}
-          <div className="flex justify-center w-full pt-4">
+          <div className="flex flex-col items-center w-full pt-4 gap-3">
             <div className="relative group">
               <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
               <FlightButton
@@ -156,6 +163,16 @@ export default function ContactPage() {
                 className="!relative !bg-zinc-50 dark:!bg-[#09090b] !border-black/5 dark:!border-white/5 !shadow-sm !shadow-black/20 dark:!shadow-lg dark:!shadow-black/80 !rounded-[6px] !px-4 !py-2 !text-[13px] !font-medium !transition-all !duration-300 hover:!bg-zinc-100 dark:hover:!bg-[#121214]"
               />
             </div>
+            {submitState === "success" && (
+              <p className="text-[12px] text-emerald-600 dark:text-emerald-400">
+                Message sent — I&apos;ll get back to you soon.
+              </p>
+            )}
+            {submitState === "error" && (
+              <p className="text-[12px] text-red-500 dark:text-red-400">
+                Something went wrong. Please email me at timilsenashivraj598@gmail.com
+              </p>
+            )}
           </div>
         </form>
 
