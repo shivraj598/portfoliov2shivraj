@@ -36,7 +36,7 @@ export function RightNavbar() {
     { name: "Open Source", href: "#opensource" },
     { name: "Skills", href: "#skills" },
     { name: "Blog", href: "#blogs" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "mailto:timilsenashivraj598@gmail.com?subject=Hello%20Shivraj" },
   ];
 
   // Only render on the homepage where the #hash sections exist
@@ -50,21 +50,38 @@ export function RightNavbar() {
       <nav className="absolute top-[22vh] left-[calc(69%+32px)] pointer-events-auto flex flex-col gap-4 mt-2">
         <h3 className="text-[10px] font-bold tracking-[0.2em] text-zinc-400 dark:text-zinc-600 uppercase mb-1">Index</h3>
         {links.map((link) => {
-          const isActive = activeSection === link.href.slice(1);
+          const isActive = link.href.startsWith("mailto:") ? activeSection === "contact" : activeSection === link.href.slice(1);
+          const className = `text-[12px] font-medium tracking-[0.05em] transition-all duration-300 ease-out flex items-center gap-3 ${isActive
+              ? "text-zinc-800 dark:text-zinc-200"
+              : "text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400"
+            }`;
+          const line = <span className={`h-[1px] transition-all duration-300 ease-out ${isActive
+              ? "w-3 bg-zinc-300 dark:bg-zinc-700"
+              : "w-0 bg-transparent"
+            }`} />;
+
+          if (link.href.startsWith("mailto:")) {
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={() => playUiSound("button", 0.16)}
+                className={className}
+              >
+                {line}
+                {link.name}
+              </a>
+            );
+          }
+
           return (
             <Link
               key={link.name}
               href={link.href}
               onClick={() => playUiSound("button", 0.16)}
-              className={`text-[12px] font-medium tracking-[0.05em] transition-all duration-300 ease-out flex items-center gap-3 ${isActive
-                  ? "text-zinc-800 dark:text-zinc-200"
-                  : "text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400"
-                }`}
+              className={className}
             >
-              <span className={`h-[1px] transition-all duration-300 ease-out ${isActive
-                  ? "w-3 bg-zinc-300 dark:bg-zinc-700"
-                  : "w-0 bg-transparent"
-                }`} />
+              {line}
               {link.name}
             </Link>
           );
