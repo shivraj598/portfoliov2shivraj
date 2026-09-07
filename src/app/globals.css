@@ -184,7 +184,7 @@ body {
 /* Site background (landing page). Dark theme: uses public/backgrounds/background1.jpeg as a
    full-bleed cover. Light theme keeps a subtle dot matrix so the page stays readable. */
 .carbon-fiber {
-  background-color: #f4f4f2;
+  background-color: #ebe9e4;
   background-image:
     radial-gradient(rgba(0, 0, 0, 0.11) 1px, transparent 1px),
     radial-gradient(rgba(0, 0, 0, 0.06) 0.75px, transparent 0.75px);
