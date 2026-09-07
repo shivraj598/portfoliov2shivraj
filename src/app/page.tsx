@@ -5,7 +5,7 @@ import { OpenSourceContributions } from "@/components/OpenSourceContributions";
 import { BlogList } from "@/components/BlogList";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
-import Link from "next/link";
+
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
 import SoundLink from "@/components/SoundLink";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
