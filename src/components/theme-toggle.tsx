@@ -61,7 +61,7 @@ export function ThemeToggle({ className }: { className?: string }) {
     <button
       type="button"
       onClick={() => {
-        void playUiSound("mouseclick", 0.6);
+        void playUiSound("mouseclick", 0.25);
         toggleTheme();
       }}
       className={cn(
