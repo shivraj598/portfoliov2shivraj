@@ -98,7 +98,7 @@ export default async function Home() {
         {/* Buttons */}
         <RevealGroup y={20} delay={0.35} stagger={0.1} start="top 80%">
         <div className="flex flex-wrap items-center gap-2 mt-4">
-          <Link href="/contact">
+          <a href="mailto:timilsenashivraj598@gmail.com?subject=Book%20an%20intro%20call">
             <SoftPillButton
               as="span"
               variant="primary"
@@ -114,8 +114,8 @@ export default async function Home() {
                 Book an intro call
               </div>
             </SoftPillButton>
-          </Link>
-          <Link href="/contact">
+          </a>
+          <a href="mailto:timilsenashivraj598@gmail.com?subject=Hello%20Shivraj">
             <SoftPillButton
               as="span"
               variant="secondary"
@@ -129,7 +129,7 @@ export default async function Home() {
                 Send an email
               </div>
             </SoftPillButton>
-          </Link>
+          </a>
           <a href="/resume/resume.pdf" target="_blank" rel="noopener noreferrer">
             <SoftPillButton
               as="span"
