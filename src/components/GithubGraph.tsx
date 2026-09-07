@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 interface ContributionDay {
   contributionCount: number;
@@ -19,6 +19,11 @@ interface ContributionLevel {
   cell: string;
 }
 
+interface PublicContribution {
+  date: string;
+  count: number;
+}
+
 interface TooltipState {
   count: number;
   date: string;
@@ -32,6 +37,33 @@ export function GithubGraph() {
   const [totalContributions, setTotalContributions] = useState(0);
   const [loading, setLoading] = useState(true);
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
+  const graphContentRef = useRef<HTMLDivElement>(null);
+
+  const buildPublicCalendar = (contributions: PublicContribution[]) => {
+    const countsByDate = new Map(contributions.map(({ date, count }) => [date, count]));
+    const today = new Date();
+    const start = new Date(today);
+    start.setDate(today.getDate() - 370);
+
+    const weeks = Array.from({ length: 53 }, (_, weekIndex) => ({
+      contributionDays: Array.from({ length: 7 }, (_, dayIndex) => {
+        const date = new Date(start);
+        date.setDate(start.getDate() + weekIndex * 7 + dayIndex);
+        const dateString = date.toISOString().slice(0, 10);
+
+        return {
+          contributionCount: countsByDate.get(dateString) || 0,
+          date: dateString,
+        };
+      }),
+    }));
+
+    return {
+      weeks,
+      months: [],
+      totalContributions: contributions.reduce((total, contribution) => total + contribution.count, 0),
+    };
+  };
 
   const emptyWeeks = useMemo<ContributionWeek[]>(() => {
     const today = new Date();
@@ -53,7 +85,7 @@ export function GithubGraph() {
 
   useEffect(() => {
     const fetchContributions = async () => {
-      const cacheKey = "github_contributions_v2";
+      const cacheKey = "github_contributions_v3";
       const TTL = 24 * 60 * 60 * 1000;
       const cachedData = typeof window !== "undefined" ? localStorage.getItem(cacheKey) : null;
       
@@ -103,8 +135,7 @@ export function GithubGraph() {
 
         const contentType = response.headers.get("content-type") || "";
         if (!contentType.includes("application/json")) {
-          console.warn("GitHub proxy returned non-JSON response; skipping contribution graph.");
-          return;
+          throw new Error("GitHub proxy returned a non-JSON response");
         }
         const data = await response.json();
         const calendar = data?.data?.user?.contributionsCollection?.contributionCalendar;
@@ -121,9 +152,24 @@ export function GithubGraph() {
               fetchedAt: Date.now(),
             }));
           }
+          return;
         }
+
+        throw new Error("GitHub proxy did not return a contribution calendar");
       } catch (error) {
-        console.error("Failed to fetch GitHub contributions", error);
+        try {
+          const response = await fetch("https://github-contributions-api.jogruber.de/v4/shivraj598?y=last");
+          if (!response.ok) throw new Error(`Public contribution API returned ${response.status}`);
+
+          const data = await response.json() as { contributions?: PublicContribution[] };
+          const publicCalendar = buildPublicCalendar(data.contributions || []);
+          setWeeks(publicCalendar.weeks);
+          setMonths(publicCalendar.months);
+          setTotalContributions(publicCalendar.totalContributions);
+          localStorage.setItem(cacheKey, JSON.stringify({ ...publicCalendar, fetchedAt: Date.now() }));
+        } catch (fallbackError) {
+          console.error("Failed to fetch GitHub contributions", error, fallbackError);
+        }
       } finally {
         setLoading(false);
       }
@@ -166,11 +212,15 @@ export function GithubGraph() {
       | React.FocusEvent<HTMLDivElement>
   ) => {
     const rect = event.currentTarget.getBoundingClientRect();
+    const graphRect = graphContentRef.current?.getBoundingClientRect();
+
+    if (!graphRect) return;
+
     setTooltip({
       count: day.contributionCount,
       date: formatDate(day.date),
-      x: rect.left + rect.width / 2,
-      y: rect.top,
+      x: rect.left - graphRect.left + rect.width / 2,
+      y: rect.top - graphRect.top,
     });
   };
 
@@ -239,7 +289,7 @@ export function GithubGraph() {
       </p>
 
       {/* Graph content — sits directly on the page background */}
-      <div className="relative py-4">
+      <div ref={graphContentRef} className="relative py-4">
         <div className="w-full">
           <div>
             <div className="mb-2 flex w-full justify-between text-[10px] text-zinc-400 dark:text-zinc-500">
@@ -317,8 +367,11 @@ export function GithubGraph() {
 
         {tooltip && (
           <div
-            className="pointer-events-none fixed z-[100] -translate-x-1/2 -translate-y-[calc(100%+8px)] rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-[11px] font-medium text-zinc-700 shadow-lg shadow-zinc-950/10 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200 dark:shadow-black/40"
-            style={{ left: tooltip.x, top: tooltip.y }}
+            className="pointer-events-none absolute z-[100] -translate-x-1/2 -translate-y-[calc(100%+8px)] max-w-[calc(100%-1rem)] rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-[11px] font-medium text-zinc-700 shadow-lg shadow-zinc-950/10 dark:border-white/10 dark:bg-zinc-950 dark:text-zinc-200 dark:shadow-black/40"
+            style={{
+              left: `clamp(5rem, ${tooltip.x}px, calc(100% - 5rem))`,
+              top: tooltip.y,
+            }}
           >
             {tooltip.count} contributions on {tooltip.date}
           </div>
