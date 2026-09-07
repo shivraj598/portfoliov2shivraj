@@ -153,7 +153,7 @@ export function SiteHeader(props: SiteHeaderProps) {
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
                     </span>
                     <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 leading-none">
-                      Available
+                      Available for work
                     </span>
                   </span>
                 </div>
