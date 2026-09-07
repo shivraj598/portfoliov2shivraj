@@ -77,7 +77,7 @@ export function SiteHeader(props: SiteHeaderProps) {
 
       {/* Cell 1: Banner */}
       <div
-        className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-transparent shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)] transition-[height] duration-300 ease-in-out"
+        className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-transparent shadow-none dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)] transition-[height] duration-300 ease-in-out"
         style={{ height: bannerH }}
       >
         <Image
@@ -90,9 +90,9 @@ export function SiteHeader(props: SiteHeaderProps) {
           className="object-cover object-top"
         />
         <BannerParticles />
-        <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/90 to-transparent dark:from-black/50 dark:to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/50 to-transparent dark:from-black/50 dark:to-transparent" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/50 to-transparent dark:from-black/40 dark:to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/50 to-transparent dark:from-black/40 dark:to-transparent" />
         <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
           <CurrentTime />
         </div>
