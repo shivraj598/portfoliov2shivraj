@@ -10,7 +10,7 @@ export const SOUNDS = {
 
 export type SoundKey = keyof typeof SOUNDS;
 
-export function playUiSound(key: SoundKey, volume = 0.45) {
+export function playUiSound(key: SoundKey, volume = 0.2) {
   void playSound(SOUNDS[key], { volume }).catch(() => {
     // Audio is non-critical; ignore failures (e.g. fetch hiccups).
   });
