@@ -42,10 +42,16 @@ export const ProjectCard = ({
 }) => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const [shouldLoadHoverImage, setShouldLoadHoverImage] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
-  const imageSrc = resolvedTheme === "light" && project.lightModeSrc ? project.lightModeSrc : project.src;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isLight = mounted && resolvedTheme === "light";
+  const imageSrc = isLight && project.lightModeSrc ? project.lightModeSrc : project.src;
 
   const statusColor = "bg-emerald-500";
   const statusLabel = "Live";
