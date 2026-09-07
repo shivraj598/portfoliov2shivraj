@@ -167,7 +167,7 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
               key={idx}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => playUiSound("click", 0.4)}
+              onClick={() => playUiSound("click", 0.18)}
               className={cardClass}
             >
               {cardInner}
@@ -179,7 +179,7 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
           <Link
             href={`/blogs/${blog.slug}`}
             key={idx}
-            onClick={() => playUiSound("click", 0.4)}
+            onClick={() => playUiSound("click", 0.18)}
             className={cardClass}
           >
             {cardInner}
