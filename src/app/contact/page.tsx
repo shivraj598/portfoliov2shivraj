@@ -7,6 +7,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { FlightButton } from "@/components/FlightButton";
 import DisplacementText from "@/components/DisplacementText";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
+import { SiMedium } from "react-icons/si";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -80,10 +81,6 @@ export default function ContactPage() {
         }
       `}} />
       <RightNavbar />
-
-      {/* Blueprint Vertical Lines */}
-      <div className="absolute top-0 bottom-0 left-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-      <div className="absolute top-0 bottom-0 right-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
 
       {/* Fixed Header: Banner + Back + Title */}
       <SiteHeader
@@ -176,14 +173,6 @@ export default function ContactPage() {
           </div>
         </form>
 
-        {/* Separator */}
-        <div className="relative mt-16 mb-0">
-          <div className="absolute left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-          {/* Intersection nodes */}
-          <div className="absolute -left-8 md:-left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
-          <div className="absolute -right-8 md:-right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-[-1px] pointer-events-none z-20" />
-        </div>
-
         {/* Footer - Socials + Displacement Text */}
         <div className="pt-2 -mt-4 pb-5 px-4 flex flex-col md:flex-row md:items-center justify-between gap-8 overflow-hidden">
           <div className="flex-shrink-0">
@@ -211,6 +200,12 @@ export default function ContactPage() {
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="2" fill="none" />
                   </svg>
                   LinkedIn
+                </a>
+              </SocialHoverCard>
+              <SocialHoverCard socialName="Medium">
+                <a href="https://medium.com/@timilsenashivraj598" target="_blank" className="flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-100 dark:bg-zinc-800/40 hover:bg-zinc-200 dark:hover:bg-zinc-800 rounded-md text-[12px] font-medium text-zinc-600 dark:text-zinc-300 transition-colors border border-zinc-200/50 dark:border-zinc-700/50">
+                  <SiMedium className="w-3.5 h-3.5" />
+                  Medium
                 </a>
               </SocialHoverCard>
             </div>
