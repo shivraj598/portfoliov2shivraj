@@ -77,39 +77,11 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
 
   return (
     <div ref={listRef} className="block">
-      {blogs.map((blog, idx) => {
-        const isLast = idx === blogs.length - 1;
-
+      {blogs.map((blog) => {
         const cardClass =
           "group relative block -mx-4 px-4 py-4 hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer";
         const cardInner = (
           <>
-            {/* Dashed bottom border for all items except the last one */}
-            {!isLast && (
-              <div
-                className="absolute bottom-0 left-0 right-0 h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none z-10"
-                style={{
-                  maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-                  WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-                }}
-              />
-            )}
-
-            {/* Special full-width dashed line and intersection dots for the last item */}
-            {isLast && (
-              <>
-                <div
-                  className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none z-10"
-                  style={{
-                    maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-                    WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-                  }}
-                />
-                <div className="absolute bottom-0 left-0 w-[2px] h-[2px] bg-black/40 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-                <div className="absolute bottom-0 right-0 w-[2px] h-[2px] bg-black/40 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-              </>
-            )}
-
             <div className="flex items-start justify-between w-full">
               <div className="flex flex-col gap-2.5">
                 <h3 className="text-[14px] md:text-[15px] font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors pr-6">
@@ -164,7 +136,7 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
           return (
             <a
               href={blog.url}
-              key={idx}
+              key={blog.slug}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => playUiSound("click", 0.18)}
@@ -178,7 +150,7 @@ export function BlogList({ blogs }: { blogs: Blog[] }) {
         return (
           <Link
             href={`/blogs/${blog.slug}`}
-            key={idx}
+            key={blog.slug}
             onClick={() => playUiSound("click", 0.18)}
             className={cardClass}
           >
