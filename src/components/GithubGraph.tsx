@@ -236,10 +236,6 @@ export function GithubGraph() {
     (best, d) => (d.contributionCount > best.contributionCount ? d : best),
     { contributionCount: 0, date: "" }
   );
-  const dashedLineMask = {
-    maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-    WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-  };
 
   return (
     <section
@@ -247,14 +243,6 @@ export function GithubGraph() {
       aria-labelledby="github-activity-title"
       aria-describedby="github-activity-summary"
     >
-      {/* Top full-width dashed line */}
-      <div
-        className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 pointer-events-none dark:border-white/[0.15]"
-        style={dashedLineMask}
-      />
-      <div className="absolute top-0 -left-4 z-20 size-[2px] -translate-x-1/2 -translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
-      <div className="absolute top-0 -right-4 z-20 size-[2px] translate-x-1/2 -translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
-
       {/* Heading */}
       <div className="relative py-2">
         <div className="flex items-center justify-between gap-3">
@@ -274,14 +262,6 @@ export function GithubGraph() {
             )}
           </p>
         </div>
-
-        {/* Bottom full-width dashed line under heading */}
-        <div
-          className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
-          style={dashedLineMask}
-        />
-        <div className="absolute bottom-0 -left-4 z-20 size-[2px] -translate-x-1/2 translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
-        <div className="absolute bottom-0 -right-4 z-20 size-[2px] translate-x-1/2 translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
       </div>
 
       <p id="github-activity-summary" className="sr-only">
@@ -377,14 +357,6 @@ export function GithubGraph() {
           </div>
         )}
       </div>
-
-      {/* Bottom full-width dashed line */}
-      <div
-        className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 pointer-events-none dark:border-white/[0.15]"
-        style={dashedLineMask}
-      />
-      <div className="absolute bottom-0 -left-4 z-20 size-[2px] -translate-x-1/2 translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
-      <div className="absolute bottom-0 -right-4 z-20 size-[2px] translate-x-1/2 translate-y-1/2 bg-black/50 pointer-events-none dark:bg-white/[0.25]" />
     </section>
   );
 }
