@@ -46,10 +46,18 @@ const socialProfiles: Record<string, SocialProfile> = {
   },
   Discord: {
     name: "Shivraj Timilsena",
-    handle: "shivraj598",
+    handle: "shivrajxd",
     avatar: "https://github.com/shivraj598.png",
     bio: "Even if it's dark, keep moving forward.",
     location: "",
+    stats: [],
+  },
+  Medium: {
+    name: "Shivraj Timilsena",
+    handle: "@timilsenashivraj598",
+    avatar: "https://github.com/shivraj598.png",
+    bio: "Engineer / Artist",
+    location: "Kathmandu, Nepal",
     stats: [],
   },
 };
@@ -117,7 +125,7 @@ export default function SocialHoverCard({ socialName, children }: SocialHoverCar
                             decoding="async"
                             quality={75}
                             sizes="48px"
-                            className="w-full h-full object-cover grayscale opacity-90 contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         {/* Discord active green dot indicator */}
@@ -243,7 +251,7 @@ export default function SocialHoverCard({ socialName, children }: SocialHoverCar
                             decoding="async"
                             quality={75}
                             sizes="56px"
-                            className="w-full h-full object-cover grayscale opacity-90 contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       </div>
