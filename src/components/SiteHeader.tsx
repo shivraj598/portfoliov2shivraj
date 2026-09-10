@@ -32,49 +32,9 @@ export function SiteHeader(props: SiteHeaderProps) {
 
   const bannerH = isScrolled ? "10vh" : "22vh";
   const rowH = isScrolled ? 56 : 112;
-  const rowTop = `calc(${bannerH} + ${rowH}px)`;
-  const lineTop1 = bannerH;
-  const lineTop2 = rowTop;
 
   return (
     <div className="fixed inset-x-0 top-0 z-50">
-      {/* Horizontal Lines - Ultra-fine Micro Dots */}
-      <div
-        className="absolute left-0 right-0 h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none transition-[top] duration-300 ease-in-out"
-        style={{
-          top: lineTop1,
-          maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-          WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-        }}
-      />
-      <div
-        className="absolute left-0 right-0 h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none transition-[top] duration-300 ease-in-out"
-        style={{
-          top: lineTop2,
-          maskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-          WebkitMaskImage: "repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)",
-        }}
-      />
-
-      {/* Ultra-Tiny Solid Nodes */}
-      {[
-        { top: lineTop1, left: "30%" },
-        { top: lineTop1, right: "30%" },
-        { top: lineTop2, left: "30%" },
-        { top: lineTop2, right: "30%" },
-      ].map((pos, i) => (
-        <div
-          key={i}
-          className="absolute w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] pointer-events-none z-10 hidden md:block transition-[top] duration-300 ease-in-out"
-          style={{
-            top: pos.top,
-            left: pos.left,
-            right: pos.right,
-            transform: `translate(${pos.right ? "50%" : "-50%"}, -50%)`,
-          }}
-        />
-      ))}
-
       {/* Cell 1: Banner */}
       <div
         className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-transparent shadow-none dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)] transition-[height] duration-300 ease-in-out"
@@ -90,9 +50,9 @@ export function SiteHeader(props: SiteHeaderProps) {
           className="object-cover object-top"
         />
         <BannerParticles />
-        <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/50 to-transparent dark:from-black/50 dark:to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/50 to-transparent dark:from-black/40 dark:to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/50 to-transparent dark:from-black/40 dark:to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/20 to-transparent dark:from-black/50 dark:to-transparent" />
+        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/20 to-transparent dark:from-black/40 dark:to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/20 to-transparent dark:from-black/40 dark:to-transparent" />
         <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
           <CurrentTime />
         </div>
@@ -124,7 +84,7 @@ export function SiteHeader(props: SiteHeaderProps) {
                     quality={90}
                     fetchPriority="high"
                     sizes="(min-width: 640px) 120px, 96px"
-                    className="h-full w-full object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </div>
