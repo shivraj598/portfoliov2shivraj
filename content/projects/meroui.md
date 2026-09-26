@@ -1,7 +1,7 @@
 ---
 title: MeroUI
 imageTitle: MeroUI Preview
-src: /projectImages/meroui/heromain.png
+src: /projectImages/meroui/hero1.png
 # video: ""
 description: A modern, fully open-sourced UI library for Next.js and React 19 — black by default, type-safe, accessible, and zero-config. Every component ships as a single source file you fully own.
 tech:
@@ -39,9 +39,7 @@ docs shell, and the templates gallery.
 
 ### Screenshots
 
-![Hero](/projectImages/meroui/heromain.png)
-
-![Docs & components](/projectImages/meroui/main2.png)
+![Hero](/projectImages/meroui/hero1.png)
 
 ### Components
 
